@@ -13,18 +13,23 @@ if [ "${password}" != "${password2}" ]; then
 	exit
 fi
 
-password="${password}"+"\n"
+password="${password}\n"
 
 # At first, disable sudo timeout
-sudo sh -c 'echo "\nDefaults timestamp_timeout=-1">>/etc/sudoers'
-
+expect -c "
+set timeout 60
+spawn sudo sh -c 'echo "\nDefaults timestamp_timeout=-1">>/etc/sudoers'
+expect \"Password\"
+send ${password}
+interact
+"
 # Pre check sequence
 ### Check System Language is English
 
 ### Check XCode and Command Line Tools are installed
 
 # Execute brew install
-expect "
+expect -c "
 set timeout 60
 spawn ./brewfile.sh
 expect \"Password\"
@@ -33,13 +38,20 @@ interact
 " 
 
 # Execute Environment settings
-expect "
+expect -c "
 set timeout 60
 spawn ./post.sh
 expect \"Password\"
 sent ${password}
+interact
 "
 
-
 # Remove disabling timeout 
+expect -c "
+set timeout 60
 sudo sed -i "/Defaults timestamp_timeout=-1/d" /etc/sudoers
+expect \"Password\"
+send ${password}
+interact
+"
+
