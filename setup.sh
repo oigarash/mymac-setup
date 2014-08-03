@@ -19,7 +19,7 @@ password="${password}\n"
 echo "SETUP: Disable sudo timeout."
 expect -c "
 set timeout 60
-spawn sudo sh -c 'echo "\nDefaults timestamp_timeout=-1">>/etc/sudoers'
+spawn sudo sh -c 'echo \"\nDefaults timestamp_timeout=-1\">>/etc/sudoers'
 expect \"Password\"
 send ${password}
 interact
@@ -34,6 +34,8 @@ echo "SETUP: Trying to install applications from Homebrew...\n"
 expect -c "
 set timeout 60
 spawn ./brewfile.sh
+expect \"Press RETURN\"
+send \"\n\"
 expect \"Password\"
 send ${password}
 interact
@@ -53,7 +55,7 @@ interact
 echo "SETUP: Enable sudo timeout"
 expect -c "
 set timeout 60
-sudo sed -i "/Defaults timestamp_timeout=-1/d" /etc/sudoers
+swpan sudo sh -c 'echo sed -i \"/Defaults timestamp_timeout=-1/d\" /etc/sudoers'
 expect \"Password\"
 send ${password}
 interact
