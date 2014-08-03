@@ -4,7 +4,7 @@
 stty -echo # disable input
 echo -n "Enter Password: "
 read password
-echo -n "Enter Password(confirm): "
+echo -n "\nEnter Password(confirm): "
 read password2
 stty echo
 
@@ -16,6 +16,7 @@ fi
 password="${password}\n"
 
 # At first, disable sudo timeout
+echo "SETUP: Disable sudo timeout."
 expect -c "
 set timeout 60
 spawn sudo sh -c 'echo "\nDefaults timestamp_timeout=-1">>/etc/sudoers'
@@ -29,6 +30,7 @@ interact
 ### Check XCode and Command Line Tools are installed
 
 # Execute brew install
+echo "SETUP: Trying to install applications from Homebrew...\n"
 expect -c "
 set timeout 60
 spawn ./brewfile.sh
@@ -38,6 +40,7 @@ interact
 " 
 
 # Execute Environment settings
+echo "SETUP: Trying to setup environmet."
 expect -c "
 set timeout 60
 spawn ./post.sh
@@ -47,6 +50,7 @@ interact
 "
 
 # Remove disabling timeout 
+echo "SETUP: Enable sudo timeout"
 expect -c "
 set timeout 60
 sudo sed -i "/Defaults timestamp_timeout=-1/d" /etc/sudoers
