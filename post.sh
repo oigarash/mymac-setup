@@ -8,7 +8,7 @@ setup_path="~/Dropbox/mac_setup"
 ### Git
 # git inital settings
 git config --global user.name "${user}"
-git config --global user.email "${email"}"
+git config --global user.email "${email}"
 
 ### Zsh 
 # Change default shell to zsh via homebrew
@@ -34,9 +34,22 @@ ln -s "${setup_path}"/.vimrc.neobundle ~/.vimrc.neobundle
 ln -s "${setup_path}"/.gvimrc ~/.gvimrc
 
 # Sublime Text 3
-st3_packages_path="~/Application Support/Sublime Text 3/Packages"
+st3_app_path="~/Library/Application Support/Sublime Text 3"
+st3_packages_path="${st3_app_path}/Packages"
+st3_install_packages_path="${st3_packages_path/Installed Packages}"
+
+if [-e ${st3_app_path}]; then 
+	mkdir ${st3_app_path}
+fi
+if [-e ${st3_packages_path}]; then 
+	mkdir ${st3_packages_path}
+fi
+if [-e ${st3_install_packages_path}]; then 
+	mkdir ${st3_install_packages_path}
+fi
+
 ### Install Package Control
-curl -L https://sublime.wbond.net/Package%20Control.sublime-package > "${st3_packages_path}"/Installed\ Packages
+curl -L https://sublime.wbond.net/Package%20Control.sublime-package > "${st3_install_packages_path}"
 
 ### link User settings
 ln -s "${setup_path}"/../dev/Sublime/User3 "${st3_packages_path}"/User 
