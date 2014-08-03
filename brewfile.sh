@@ -15,7 +15,8 @@ brew upgrade
 ### http://qiita.com/macoshita/items/09c730e5a281897365eb
  
 # Install from Brew repo
-brew install caskroom/cask/brew-cask 
+brew install caskroom/cask/brew-cask
+
 #### Some needs xquarts
 brew cask install xquartz
 
@@ -67,7 +68,7 @@ brew cask alfred link
 ### brew cask install  
 
 ## Almost
-brew cask isntall vmware-fusion
+brew cask install vmware-fusion
 brew cask install haskell-platform 
 brew cask install onyx 
 

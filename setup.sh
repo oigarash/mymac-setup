@@ -4,7 +4,8 @@
 stty -echo # disable input
 echo -n "Enter Password: "
 read password
-echo -n "\nEnter Password(confirm): "
+echo "\n"
+echo -n "Enter Password(confirm): "
 read password2
 stty echo
 
@@ -12,6 +13,13 @@ if [ "${password}" != "${password2}" ]; then
 	echo "Passwords are not matched"
 	exit
 fi
+
+# Ask some individual information
+echo -n "Enter Your Name: "
+read name 
+echo "\n"
+echo -n "Enter Your email address: "
+read email
 
 password="${password}\n"
 

@@ -3,6 +3,11 @@
 # Some variables
 setup_path="~/Dropbox/mac_setup"
 
+
+### Git
+# git inital settings
+
+
 ### Zsh 
 # Change default shell to zsh via homebrew
 sudo sh -c 'echo "/usr/local/bin/zsh\n" >> /etc/shells'
