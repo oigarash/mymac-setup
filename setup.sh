@@ -1,5 +1,26 @@
 #!/bin/bash
 
+# Pre check sequence
+### Check System Language is English
+str=`defaults read /Library/Preferences/.GlobalPreferences.plist AppleLanguages`
+language=`echo $str | cut -f 1 -d "," | cut -f 2 -d " "`
+
+if ["${language}" != "en"]; then
+	echo "Need to change language English. Otherwise, dockutil may not work."
+	echo "Run 'xcode-select --install' to install them"
+	exit
+fi
+
+### Check XCode and Command Line Tools are installed
+if [ -e /Applications/Xcode.app ]; then
+	echo "Need to install Xcode to install Homebrew"
+	exit
+fi
+
+if [ -e /Library/Developer/CommandLineTools]; then
+	echo "Need to install Xcode Command Lint Tools to install Homebrew"
+	echo ""
+
 # Ask sudo password to install 
 stty -echo # disable input
 echo -n "Enter Password: "
@@ -42,11 +63,12 @@ echo "SETUP: Trying to install applications from Homebrew...\n"
 expect -c "
 set timeout 60
 spawn ./brewfile.sh
-expect \"Press RETURN\"
-send \"\n\"
-expect \"Password\"
-send ${password}
-interact
+while 1 {
+    expect {
+        \"Password:\"    {send \"${password}\"}
+        \"Press RETURN\" {send \"\n\"}
+    }
+}
 " 
 
 # Execute Environment settings
@@ -54,16 +76,18 @@ echo "SETUP: Trying to setup environmet."
 expect -c "
 set timeout 60
 spawn ./post.sh
-expect \"Password\"
-sent ${password}
-interact
+while 1 {
+    expect {
+        \"Password:\"    {send \"${password}\"}
+    }
+}
 "
 
 # Remove disabling timeout 
 echo "SETUP: Enable sudo timeout"
 expect -c "
-set timeout 60
-swpan sudo sh -c 'echo sed -i \"/Defaults timestamp_timeout=-1/d\" /etc/sudoers'
+set timeout 60 
+spwan sudo sh -c 'echo sed -i \"/Defaults timestamp_timeout=-1/d\" /etc/sudoers'
 expect \"Password\"
 send ${password}
 interact
