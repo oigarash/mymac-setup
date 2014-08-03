@@ -34,22 +34,23 @@ ln -s "${setup_path}"/.vimrc.neobundle ~/.vimrc.neobundle
 ln -s "${setup_path}"/.gvimrc ~/.gvimrc
 
 # Sublime Text 3
-st3_app_path="~/Library/Application Support/Sublime Text 3"
+st3_app_path="${HOME}/Library/Application Support/Sublime Text 3"
 st3_packages_path="${st3_app_path}/Packages"
-st3_install_packages_path="${st3_packages_path/Installed Packages}"
+st3_install_packages_path="${st3_app_path}/Installed Packages"
 
-if [-e ${st3_app_path}]; then 
-	mkdir ${st3_app_path}
+if [ ! -e "${st3_app_path}" ]; then 
+	mkdir "${st3_app_path}"
 fi
-if [-e ${st3_packages_path}]; then 
-	mkdir ${st3_packages_path}
+if [ ! -e "${st3_packages_path}" ]; then 
+	mkdir "${st3_packages_path}"
 fi
-if [-e ${st3_install_packages_path}]; then 
-	mkdir ${st3_install_packages_path}
+if [ ! -e "${st3_install_packages_path}" ]; then 
+	mkdir "${st3_install_packages_path}"
 fi
 
 ### Install Package Control
-curl -L https://sublime.wbond.net/Package%20Control.sublime-package > "${st3_install_packages_path}"
+package_control="${st3_install_packages_path}/Package Control.sublime-package"
+curl -L https://sublime.wbond.net/Package%20Control.sublime-package > "${package_control}"
 
 ### link User settings
 ln -s "${setup_path}"/../dev/Sublime/User3 "${st3_packages_path}"/User 
