@@ -75,7 +75,7 @@ while 1 {
 echo "SETUP: Trying to setup environmet."
 expect -c "
 set timeout 60
-spawn ./post.sh
+spawn ./post.sh \"${user}\" \"${password}\"
 while 1 {
     expect {
         \"Password:\"    {send \"${password}\"}

@@ -1,12 +1,14 @@
 #!/bin/bash
 
 # Some variables
+user=$1
+email=$2
 setup_path="~/Dropbox/mac_setup"
-
 
 ### Git
 # git inital settings
-
+git config --global user.name "${user}"
+git config --global user.email "${email"}"
 
 ### Zsh 
 # Change default shell to zsh via homebrew
@@ -32,19 +34,12 @@ ln -s "${setup_path}"/.vimrc.neobundle ~/.vimrc.neobundle
 ln -s "${setup_path}"/.gvimrc ~/.gvimrc
 
 # Sublime Text 3
-st3_path="~/Library/Application Support/Sublime Text 3"
-st3_package_path="${st3_path}/Packages"
-st3_install_package_path="${st3_package_path}/Install Packages"
-
-mkdir "${st3_path}"
-mkdir "${st3_package_path}"
-mkdir "${st3_install_package_path}"
-
+st3_packages_path="~/Application Support/Sublime Text 3/Packages"
 ### Install Package Control
-curl -L https://sublime.wbond.net/Package%20Control.sublime-package > "${st3_install_package_path}"
+curl -L https://sublime.wbond.net/Package%20Control.sublime-package > "${st3_packages_path}"/Installed\ Packages
 
 ### link User settings
-ln -s "${setup_path}"/../dev/Sublime/User3 "${st3_package_path}"/User 
+ln -s "${setup_path}"/../dev/Sublime/User3 "${st3_packages_path}"/User 
 
 
 ### Mac Function
