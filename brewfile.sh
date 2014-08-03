@@ -17,9 +17,9 @@ brew upgrade
 # Install from Brew repo
 brew install caskroom/cask/brew-cask 
 #### Some needs xquarts
-brew cask install xquarts 
+brew cask install xquartz
 
-brew zsh install 
+brew install zsh  
 brew install python  
 brew install python2 
 brew install git 
@@ -34,7 +34,7 @@ brew install tmux
 
 
 # Mange Dock https://github.com/kcrawford/dockutil
-brew install docutil
+brew install dockutil
 
 # Install from Brew Cask Repo
 
